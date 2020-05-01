@@ -1,5 +1,11 @@
+require("dotenv").config();
+require("./src/utils/db");
 const express = require("express");
+
 const app = express();
+app.use(express.json()); // required if you use req.body
+
+const companyRouter = require("./src/routes/company.route");
 
 app.get("/", (req, res) => {
   res.json({
@@ -12,6 +18,13 @@ app.get("/", (req, res) => {
     "6": "POST /user/login",
     "7": "POST /user/logout",
   });
+});
+
+app.use("/companies", companyRouter);
+
+app.use((err, req, res, next) => {
+  res.status(err.statusCode || 500);
+  res.json({ message: err.message });
 });
 
 module.exports = app;
