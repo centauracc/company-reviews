@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json()); // required if you use req.body
 
 const companyRouter = require("./src/routes/company.route");
+const userRouter = require("./src/routes/user.route");
 
 app.get("/", (req, res) => {
   res.json({
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/companies", companyRouter);
+app.use("/user", userRouter);
 
 app.use((err, req, res, next) => {
   res.status(err.statusCode || 500);
