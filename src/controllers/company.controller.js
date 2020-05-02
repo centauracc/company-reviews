@@ -1,8 +1,9 @@
 const companyDB = require("../models/company.model");
 
-const displayAllCompanies = async (req, res) => {
+const displayAllCompanies = async (req, res, next) => {
   try {
-    const allCompanies = await companyDB.find().lean();
+    const allCompanies = await companyDB.find({}, "-_id -__v -reviews").lean();
+    console.log("allCompanies", allCompanies);
     res.json(allCompanies);
   } catch (err) {
     const cannotDisplayAllCompaniesError = new Error(
