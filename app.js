@@ -1,9 +1,11 @@
 require("dotenv").config();
 require("./src/utils/db");
 const express = require("express");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(express.json()); // required if you use req.body
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 const companyRouter = require("./src/routes/company.route");
 const userRouter = require("./src/routes/user.route");

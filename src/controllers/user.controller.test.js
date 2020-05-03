@@ -29,4 +29,16 @@ describe("user.controller", () => {
     expect(body.password).not.toBe(newUser.password);
     expect(body.email).toEqual(newUser.email);
   });
+
+  it("should allow user to sign in", async () => {
+    const signInUser = {
+      username: UserData[0].username,
+      password: UserData[0].password,
+    };
+    const { text } = await request(app)
+      .post("/user/login")
+      .send(signInUser)
+      .expect(200);
+    expect(text).toEqual("You are now signed in");
+  });
 });
